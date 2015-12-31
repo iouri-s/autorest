@@ -84,7 +84,16 @@ namespace @Settings.Namespace
             DeserializationSettings.Converters.Add(new ResourceJsonConverter()); 
             DeserializationSettings.Converters.Add(new CloudErrorJsonConverter()); 
         }    
-    
+@EmptyLine
+        protected override void Dispose(bool disposing)
+        {
+            foreach (var disposable in Disposables)
+            {
+                disposable.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
         @foreach (var method in Model.MethodTemplateModels)
         {
         @:@(Include(new AzureMethodTemplate(), (AzureMethodTemplateModel)method))

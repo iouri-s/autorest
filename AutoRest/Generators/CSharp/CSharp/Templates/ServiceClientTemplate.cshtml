@@ -79,7 +79,17 @@ namespace @Settings.Namespace
             @:DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<@(polymorphicType.Name)>("@(polymorphicType.PolymorphicDiscriminator)"));
             } 
         }    
-    
+@EmptyLine
+        protected override void Dispose(bool disposing)
+        {
+            foreach (var disposable in Disposables)
+            {
+                disposable.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+@EmptyLine
         @foreach (var method in Model.MethodTemplateModels)
         {
         @:@(Include(new MethodTemplate(), method))

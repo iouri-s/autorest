@@ -75,6 +75,7 @@ public async Task<@(Model.OperationResponseReturnTypeString)> @(Model.Name)WithH
     @(Model.BuildUrl("_url"))
     // Create HTTP transport objects
     HttpRequestMessage _httpRequest = new HttpRequestMessage();
+    Client.Disposables.Add(_httpRequest);
     _httpRequest.Method = new HttpMethod("@(Model.HttpMethod.ToString().ToUpper())");
     _httpRequest.RequestUri = new Uri(_url);
     // Set Headers
@@ -179,6 +180,7 @@ public async Task<@(Model.OperationResponseReturnTypeString)> @(Model.Name)WithH
 
     cancellationToken.ThrowIfCancellationRequested();
     HttpResponseMessage _httpResponse = await @(Model.ClientReference).HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+    Client.Disposables.Add(_httpResponse);
     if (_shouldTrace)
     {
         ServiceClientTracing.ReceiveResponse(_invocationId, _httpResponse);

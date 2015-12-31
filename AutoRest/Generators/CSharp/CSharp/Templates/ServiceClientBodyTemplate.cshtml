@@ -6,7 +6,16 @@
 @using System.Linq
 @inherits Microsoft.Rest.Generator.Template<ServiceClientTemplateModel>
 
-
+private List<IDisposable> _disposables = new List<IDisposable>();
+@EmptyLine
+internal List<IDisposable> Disposables
+{
+    get
+    {
+        return _disposables;
+    }
+}
+@EmptyLine
 /// <summary>
 /// The base URI of the service.
 /// </summary>
